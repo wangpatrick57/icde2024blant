@@ -87,7 +87,10 @@ def should_be_seed(s1_entry_nodes, s2_entry_nodes, s1_odv_dir, s2_odv_dir, thres
         s2_odv = s2_odv_dir.get_odv(s2_node)
         sims.append(s1_odv.get_similarity(s2_odv))
 
-    return mean(sims) >= threshold
+    if threshold < 0:
+        return sum(sims) / len(sims) < -threshold
+    else:
+        return sum(sims) / len(sims) >= threshold
 
 if __name__ == '__main__':
     species1 = 'mouse'
